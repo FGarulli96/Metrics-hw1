@@ -9,7 +9,7 @@ set more off
 set obs 100 //
 drawnorm x , means(1) cov(2) //drawing from N(0,2) normal distribution
 
-gen y = (0.5 - 2*x) + rnormal(0,1)
+gen y = (0.5 + 2*x) + rnormal(0,1)
 	
 reg y x
 
@@ -40,7 +40,7 @@ set more off
 set obs 100 //
 drawnorm x , means(1) cov(2) //drawing from N(0,2) normal distribution
 
-gen y = (0.5 - 2*x)^2 + rnormal(0,1)
+gen y = (0.5 + 2*x)^2 + rnormal(0,1)
 	
 reg y x
 
