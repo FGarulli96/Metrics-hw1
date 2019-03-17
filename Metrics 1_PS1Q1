@@ -1,0 +1,55 @@
+global usegroupseed 103
+capture program drop _all
+program define prog_PS1Q1, rclass //
+drop _all
+scalar drop _all
+matrix drop _all
+set more off
+
+set obs 100 //
+drawnorm x , means(1) cov(2) //drawing from N(0,2) normal distribution
+
+gen y = (0.5 - 2*x) + rnormal(0,1)
+	
+reg y x
+
+return scalar cons =_b[_cons] 
+return scalar beta = _b[x] 
+end
+
+set seed 103  
+simulate constant= r(cons) ///
+beta=r(beta), ///
+rep(1000)  /// 1000 repetitions
+saving(problem_set_1Q1, replace): prog_PS1Q1 
+
+summarize beta constant
+
+histogram constant, kdensity normal
+
+histogram beta, kdensity normal
+
+global usegroupseed 103
+capture program drop _all
+program define prog_PS1Q1, rclass //
+drop _all
+scalar drop _all
+matrix drop _all
+set more off
+
+set obs 100 //
+drawnorm x , means(1) cov(2) //drawing from N(0,2) normal distribution
+
+gen y = (0.5 - 2*x)^2 + rnormal(0,1)
+	
+reg y x
+
+return scalar cons =_b[_cons] 
+return scalar beta = _b[x] 
+end
+
+set seed 103  
+simulate constant= r(cons) ///
+beta=r(beta), ///
+rep(1000)  /// 1000 repetitions
+saving (problem_set_1Q1, replace): prog_PS1Q1
